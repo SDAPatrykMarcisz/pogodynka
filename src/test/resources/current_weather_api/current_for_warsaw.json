@@ -1,0 +1,44 @@
+{
+  "coord": {
+    "lon": 21.0118,
+    "lat": 52.2298
+  },
+  "weather": [
+    {
+      "id": 801,
+      "main": "Clouds",
+      "description": "lekkie zachmurzenie",
+      "icon": "02d"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 15.98,
+    "feels_like": 15.98,
+    "temp_min": 15.98,
+    "temp_max": 15.98,
+    "pressure": 1010,
+    "humidity": 69
+  },
+  "visibility": 10000,
+  "wind": {
+    "speed": 0.45,
+    "deg": 8,
+    "gust": 2.68
+  },
+  "clouds": {
+    "all": 20
+  },
+  "dt": 1621957193,
+  "sys": {
+    "type": 2,
+    "id": 2032856,
+    "country": "PL",
+    "sunrise": 1621909662,
+    "sunset": 1621967905
+  },
+  "timezone": 7200,
+  "id": 756135,
+  "name": "Warszawa",
+  "cod": 200
+}
