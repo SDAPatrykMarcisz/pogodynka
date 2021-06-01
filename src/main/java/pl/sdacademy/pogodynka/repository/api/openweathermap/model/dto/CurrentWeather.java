@@ -14,7 +14,7 @@ public class CurrentWeather {
     @JsonProperty("weather")
     private List<Weather> weatherList;
 
-    @JsonProperty("main")
+    @JsonProperty("pl/sdacademy/pogodynka/ui")
     private Temperature temperature;
 
     private Wind wind;

@@ -13,6 +13,7 @@ import pl.sdacademy.pogodynka.model.dto.WeatherData;
 import pl.sdacademy.pogodynka.repository.WeatherMapCityRepository;
 import pl.sdacademy.pogodynka.utils.ReadFileToStringUtils;
 
+import java.net.http.HttpClient;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -33,7 +34,7 @@ public class WeatherClientTest {
 
     @BeforeEach
     void setUp() {
-        weatherClient = new OpenWeatherMap("http://localhost:8080", weatherMapCityRepository);
+        weatherClient = new OpenWeatherMap("http://localhost:8080", weatherMapCityRepository, HttpClient.newHttpClient());
         mockServer.reset();
     }
 

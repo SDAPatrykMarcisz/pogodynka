@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class Weather {
 
-    @JsonProperty("main")
+    @JsonProperty("pl/sdacademy/pogodynka/ui")
     private String groupOfWeather;
 
     private String description;

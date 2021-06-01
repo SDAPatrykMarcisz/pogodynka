@@ -2,15 +2,21 @@ package pl.sdacademy.pogodynka.service;
 
 import pl.sdacademy.pogodynka.exceptions.WeatherNotFoundException;
 import pl.sdacademy.pogodynka.model.dto.WeatherData;
+import pl.sdacademy.pogodynka.repository.WeatherDatabaseClient;
+import pl.sdacademy.pogodynka.repository.WeatherMapCityRepository;
 import pl.sdacademy.pogodynka.repository.api.openweathermap.OpenWeatherMap;
 import pl.sdacademy.pogodynka.repository.api.WeatherClient;
+
+import java.util.Collection;
 
 public class WeatherService {
 
     private WeatherClient weatherClient;
+    private WeatherDatabaseClient weatherDatabase;
 
     public WeatherService() {
         this.weatherClient = new OpenWeatherMap();
+        this.weatherDatabase = new WeatherMapCityRepository();
     }
 
     public WeatherData getWeatherDataForCity(String city) throws WeatherNotFoundException {
@@ -28,4 +34,7 @@ public class WeatherService {
         return sb.toString();
     }
 
+    public Collection<String> getCityNames() {
+        return weatherDatabase.getCityList();
+    }
 }

@@ -1,4 +1,4 @@
-package pl.sdacademy.pogodynka;
+package pl.sdacademy.pogodynka.ui;
 
 import pl.sdacademy.pogodynka.exceptions.WeatherNotFoundException;
 import pl.sdacademy.pogodynka.service.WeatherService;

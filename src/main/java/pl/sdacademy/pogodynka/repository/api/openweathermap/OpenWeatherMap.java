@@ -23,21 +23,26 @@ public class OpenWeatherMap implements WeatherClient {
 
     private String apiUrl;
     private WeatherMapCityRepository weatherMapCityRepository;
+    private HttpClient httpClient;
 
     public OpenWeatherMap() {
         this.apiUrl = "http://api.openweathermap.org";
         this.weatherMapCityRepository = WeatherMapCityRepository.getInstance();
+        httpClient = HttpClient.newHttpClient();
     }
 
-    OpenWeatherMap(String apiUrl, WeatherMapCityRepository weatherMapCityRepository) {
+    OpenWeatherMap(String apiUrl, WeatherMapCityRepository weatherMapCityRepository, HttpClient httpClient) {
         this.apiUrl = apiUrl;
         this.weatherMapCityRepository = weatherMapCityRepository;
+        this.httpClient = httpClient;
     }
 
     @Override
     public WeatherData getWeatherDataForCity(String city) throws WeatherNotFoundException {
         Optional<Long> cityId = weatherMapCityRepository.getIdOfCity(city);
-        String queryParam = cityId.map(id -> String.format("id=%s", id)).orElse(String.format("q=%s", city));
+        String queryParam = cityId.map(id -> String.format("id=%s", id))
+                .orElse(String.format("q=%s", city));
+
         try {
             CurrentWeather currentWeather = downloadCurrentWeather(queryParam);
             return WeatherData.builder()
@@ -54,13 +59,13 @@ public class OpenWeatherMap implements WeatherClient {
     }
 
     private CurrentWeather downloadCurrentWeather(String... queryParams) throws Exception {
-        HttpClient client = HttpClient.newHttpClient();
+
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
                 .uri(getUri(queryParams))
                 .build();
         try {
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             String json = response.body();
             ObjectMapper mapper = new ObjectMapper()
                     .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);

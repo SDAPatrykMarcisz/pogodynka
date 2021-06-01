@@ -26,6 +26,7 @@ public class MainDatabase {
                 .map(city -> {
                     WeatherMapCityEntity weatherMapCityEntity = new WeatherMapCityEntity();
                     weatherMapCityEntity.setId(city.getId());
+                    weatherMapCityEntity.setCountry(city.getCountry());
                     Set<String> keyWords = Optional.ofNullable(city.getLangs()).map(langs -> langs.stream()
                             .flatMap(x -> x.values().stream())
                             .collect(Collectors.toSet())).orElse(new HashSet<>());
