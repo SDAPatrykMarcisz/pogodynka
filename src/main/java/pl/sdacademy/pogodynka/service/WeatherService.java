@@ -8,11 +8,16 @@ import pl.sdacademy.pogodynka.repository.api.WeatherClient;
 public class WeatherService {
 
     private WeatherClient weatherClient;
-
+//
     public WeatherService() {
         this.weatherClient = new OpenWeatherMap();
     }
 
+    WeatherService(WeatherClient client){
+        this.weatherClient = client;
+    }
+
+//
     public WeatherData getWeatherDataForCity(String city) throws WeatherNotFoundException {
         return weatherClient.getWeatherDataForCity(city);
     }

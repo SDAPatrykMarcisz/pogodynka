@@ -23,15 +23,18 @@ public class OpenWeatherMap implements WeatherClient {
 
     private String apiUrl;
     private WeatherMapCityRepository weatherMapCityRepository;
+    private HttpClient client;
 
     public OpenWeatherMap() {
         this.apiUrl = "http://api.openweathermap.org";
         this.weatherMapCityRepository = WeatherMapCityRepository.getInstance();
+        this.client = HttpClient.newHttpClient();
     }
 
-    OpenWeatherMap(String apiUrl, WeatherMapCityRepository weatherMapCityRepository) {
+    OpenWeatherMap(String apiUrl, WeatherMapCityRepository weatherMapCityRepository, HttpClient client) {
         this.apiUrl = apiUrl;
         this.weatherMapCityRepository = weatherMapCityRepository;
+        this.client = client;
     }
 
     @Override
@@ -54,7 +57,7 @@ public class OpenWeatherMap implements WeatherClient {
     }
 
     private CurrentWeather downloadCurrentWeather(String... queryParams) throws Exception {
-        HttpClient client = HttpClient.newHttpClient();
+
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
                 .uri(getUri(queryParams))
@@ -66,9 +69,7 @@ public class OpenWeatherMap implements WeatherClient {
                     .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             CurrentWeather result = mapper.readValue(json, CurrentWeather.class);
             return result;
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
         throw new Exception("Weather not found");
