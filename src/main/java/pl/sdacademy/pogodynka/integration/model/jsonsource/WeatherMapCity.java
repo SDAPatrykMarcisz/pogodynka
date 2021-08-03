@@ -9,5 +9,6 @@ import java.util.Map;
 public class WeatherMapCity {
     private Long id;
     private String name;
+    private String country;
     private List<Map<String, String>> langs;
 }

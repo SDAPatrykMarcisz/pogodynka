@@ -1,4 +1,4 @@
-package pl.sdacademy.pogodynka.repository.api.openweathermap.model.dao;
+package pl.sdacademy.pogodynka.repository.dao;
 
 import lombok.Data;
 
@@ -12,6 +12,8 @@ public class WeatherMapCityEntity {
 
     @Id
     private Long id;
+
+    private String country;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> keyWords;

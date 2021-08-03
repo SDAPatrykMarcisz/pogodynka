@@ -1,0 +1,16 @@
+{
+  "status": "success",
+  "country": "Poland",
+  "countryCode": "PL",
+  "region": "20",
+  "regionName": "Podlasie",
+  "city": "Bialystok",
+  "zip": "15-028",
+  "lat": 53.1375,
+  "lon": 23.1796,
+  "timezone": "Europe/Warsaw",
+  "isp": "Orange Polska Spolka Akcyjna",
+  "org": "Orange Polska S.A.",
+  "as": "AS5617 Orange Polska Spolka Akcyjna",
+  "query": "79.185.88.72"
+}

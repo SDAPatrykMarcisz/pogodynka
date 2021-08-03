@@ -1,12 +1,16 @@
-package pl.sdacademy.pogodynka.repository.api.openweathermap.model.dto;
+package pl.sdacademy.pogodynka.external.api.weather.openweather.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import pl.sdacademy.pogodynka.model.dto.Coordinates;
 
 import java.util.List;
 
 @Data
 public class CurrentWeather {
+
+    @JsonProperty("coord")
+    private Coordinates coordinates;
 
     @JsonProperty("name")
     private String city;
@@ -15,8 +19,9 @@ public class CurrentWeather {
     private List<Weather> weatherList;
 
     @JsonProperty("main")
-    private Temperature temperature;
+    private WeatherSummary weatherSummary;
 
+    @JsonProperty("wind")
     private Wind wind;
 
 }

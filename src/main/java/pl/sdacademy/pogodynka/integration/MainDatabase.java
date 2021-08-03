@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import pl.sdacademy.pogodynka.integration.model.jsonsource.WeatherMapCity;
 import pl.sdacademy.pogodynka.repository.WeatherMapCityRepository;
-import pl.sdacademy.pogodynka.repository.api.openweathermap.model.dao.WeatherMapCityEntity;
+import pl.sdacademy.pogodynka.repository.dao.WeatherMapCityEntity;
 import pl.sdacademy.pogodynka.utils.ReadFileToStringUtils;
 
 import java.util.HashSet;
@@ -26,6 +26,7 @@ public class MainDatabase {
                 .map(city -> {
                     WeatherMapCityEntity weatherMapCityEntity = new WeatherMapCityEntity();
                     weatherMapCityEntity.setId(city.getId());
+                    weatherMapCityEntity.setCountry(city.getCountry());
                     Set<String> keyWords = Optional.ofNullable(city.getLangs()).map(langs -> langs.stream()
                             .flatMap(x -> x.values().stream())
                             .collect(Collectors.toSet())).orElse(new HashSet<>());
