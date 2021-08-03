@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import pl.sdacademy.pogodynka.integration.model.jsonsource.WeatherMapCity;
 import pl.sdacademy.pogodynka.repository.WeatherMapCityRepository;
-import pl.sdacademy.pogodynka.repository.api.openweathermap.model.dao.WeatherMapCityEntity;
+import pl.sdacademy.pogodynka.repository.dao.WeatherMapCityEntity;
 import pl.sdacademy.pogodynka.utils.ReadFileToStringUtils;
 
 import java.util.HashSet;

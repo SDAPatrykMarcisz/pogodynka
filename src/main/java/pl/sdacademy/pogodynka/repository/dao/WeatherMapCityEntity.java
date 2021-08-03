@@ -1,4 +1,4 @@
-package pl.sdacademy.pogodynka.repository.api.openweathermap.model.dao;
+package pl.sdacademy.pogodynka.repository.dao;
 
 import lombok.Data;
 

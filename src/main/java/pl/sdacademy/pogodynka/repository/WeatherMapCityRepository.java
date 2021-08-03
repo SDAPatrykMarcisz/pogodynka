@@ -1,8 +1,7 @@
 package pl.sdacademy.pogodynka.repository;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.apache.commons.lang3.StringUtils;
-import pl.sdacademy.pogodynka.repository.api.openweathermap.model.dao.WeatherMapCityEntity;
+import pl.sdacademy.pogodynka.repository.dao.WeatherMapCityEntity;
 
 import javax.persistence.*;
 
@@ -13,7 +12,7 @@ public class WeatherMapCityRepository implements WeatherDatabaseClient {
 
     private static final WeatherMapCityRepository INSTANCE = new WeatherMapCityRepository();
 
-    public static WeatherMapCityRepository getInstance(){
+    public static WeatherMapCityRepository getInstance() {
         return INSTANCE;
     }
 
@@ -35,10 +34,10 @@ public class WeatherMapCityRepository implements WeatherDatabaseClient {
         final EntityManagerFactory emf = Persistence.createEntityManagerFactory("weatherAppPU");
         final EntityManager em = emf.createEntityManager();
         try {
-            Query query = em.createQuery("select city from WeatherMapCityEntity city where city.id = :numericId or :query member of city.keyWords");
-            query.setParameter("query", StringUtils.stripAccents(city)); //https://stackoverflow.com/questions/3322152/is-there-a-way-to-get-rid-of-accents-and-convert-a-whole-string-to-regular-lette
-            query.setParameter("numericId", city.matches("-?\\d+") ? Long.parseLong(city) : -1);
-            return Optional.ofNullable((List<WeatherMapCityEntity>)query.getResultList()).filter(x -> x.size() > 0).map(x -> x.get(0).getId());
+            TypedQuery<WeatherMapCityEntity> weatherMapQuery = em.createQuery("select city from WeatherMapCityEntity city where city.id = :numericId or :query member of city.keyWords", WeatherMapCityEntity.class)
+                    .setParameter("query", StringUtils.stripAccents(city)) //https://stackoverflow.com/questions/3322152/is-there-a-way-to-get-rid-of-accents-and-convert-a-whole-string-to-regular-lette
+                    .setParameter("numericId", city.matches("-?\\d+") ? Long.parseLong(city) : -1);
+            return Optional.ofNullable(weatherMapQuery.getResultList()).filter(x -> x.size() > 0).map(x -> x.get(0).getId());
         } finally {
             emf.close();
         }

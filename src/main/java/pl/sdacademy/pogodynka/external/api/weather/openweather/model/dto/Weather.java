@@ -1,4 +1,4 @@
-package pl.sdacademy.pogodynka.repository.api.openweathermap.model.dto;
+package pl.sdacademy.pogodynka.external.api.weather.openweather.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class Weather {
 
-    @JsonProperty("pl/sdacademy/pogodynka/ui")
+    @JsonProperty("main")
     private String groupOfWeather;
 
     private String description;

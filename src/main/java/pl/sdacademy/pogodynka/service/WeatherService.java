@@ -1,11 +1,13 @@
 package pl.sdacademy.pogodynka.service;
 
 import pl.sdacademy.pogodynka.exceptions.WeatherNotFoundException;
+import pl.sdacademy.pogodynka.external.api.location.LocationByIpApi;
+import pl.sdacademy.pogodynka.model.dto.Coordinates;
 import pl.sdacademy.pogodynka.model.dto.WeatherData;
+import pl.sdacademy.pogodynka.external.api.weather.openweather.OpenWeatherApi;
+import pl.sdacademy.pogodynka.external.api.weather.WeatherClient;
 import pl.sdacademy.pogodynka.repository.WeatherDatabaseClient;
 import pl.sdacademy.pogodynka.repository.WeatherMapCityRepository;
-import pl.sdacademy.pogodynka.repository.api.openweathermap.OpenWeatherMap;
-import pl.sdacademy.pogodynka.repository.api.WeatherClient;
 
 import java.util.Collection;
 
@@ -13,10 +15,18 @@ public class WeatherService {
 
     private WeatherClient weatherClient;
     private WeatherDatabaseClient weatherDatabase;
+    private LocationByIpApi locationByIpApi;
 
     public WeatherService() {
-        this.weatherClient = new OpenWeatherMap();
+        this.weatherClient = new OpenWeatherApi();
         this.weatherDatabase = new WeatherMapCityRepository();
+        this.locationByIpApi = new LocationByIpApi();
+    }
+
+    WeatherService(WeatherClient weatherClient, WeatherDatabaseClient weatherDatabase, LocationByIpApi locationByIpApi) {
+        this.weatherClient = weatherClient;
+        this.weatherDatabase = weatherDatabase;
+        this.locationByIpApi = locationByIpApi;
     }
 
     public WeatherData getWeatherDataForCity(String city) throws WeatherNotFoundException {
@@ -36,5 +46,17 @@ public class WeatherService {
 
     public Collection<String> getCityNames() {
         return weatherDatabase.getCityList();
+    }
+
+    public WeatherData getWeatherDataForCoords(String lon, String lat) throws WeatherNotFoundException {
+        return getWeatherDataForLocation(new Coordinates(lon, lat));
+    }
+
+    public WeatherData getWeatherDataForCurrentLocation() throws WeatherNotFoundException {
+        return getWeatherDataForLocation(locationByIpApi.getCoordinatesForCurrentDevice());
+    }
+
+    private WeatherData getWeatherDataForLocation(Coordinates coords) throws WeatherNotFoundException {
+        return weatherClient.getWeatherDataForCoordinates(coords);
     }
 }
